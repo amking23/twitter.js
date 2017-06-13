@@ -15,7 +15,15 @@
     
       <!-- display tweets here -->
       {% for tweet in tweets %}
-        <li>{{tweet.content}}</li>
+      <div class='row'>
+      	<div class='col-md-1'>
+      		<img src="http://www.hdicon.com/wp-content/uploads/2012/07/twitter_2012.png" width='80' height='80'>
+      	</div><br>
+      	<div class='col-md-7'>
+	      	<li class='userName'>{{tweet.name}}</li>
+	        <li>{{tweet.content}}</li>
+	    </div>
+	  </div>
       {% endfor %}
       
     </div>

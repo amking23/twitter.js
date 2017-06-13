@@ -29,7 +29,7 @@ nunjucks.configure('views'); // point nunjucks to the proper directory for templ
 
 app.use('/', routes);
 
-app.use('/static', express.static('routes')); // uses '/static' as an alias for the  directory location.
+app.use('/static', express.static('public')); // uses '/static' as an alias for the  directory location.
 // app.use(express.static('files'));s
 
 app.use('/photos/special', function(req, res, next){
