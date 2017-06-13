@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 app.use(morgan('dev'));
 
-
-
 var locals = {
     title: 'An Example',
     people: [
