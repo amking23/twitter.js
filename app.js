@@ -3,6 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 app.use(morgan('dev'));
+const routes = require('./routes');
+const path = require('path');
 
 var locals = {
     title: 'An Example',
@@ -13,29 +15,31 @@ var locals = {
     ]
 };
 
+const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+
 nunjucks.configure('views', {noCache: true});
 nunjucks.render('index.html', locals, function (err, output) {
-    console.log(output);
+	if (err) throw err;
+    console.log('ran render');
 });
 
 app.set('view engine', 'html'); // have res.render work with html files
 app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
 nunjucks.configure('views'); // point nunjucks to the proper directory for templates
 
-app.get('/', function(req, resp){
-	resp.send('heyyy');
+app.use('/', routes);
+
+app.use('/static', express.static('routes')); // uses '/static' as an alias for the  directory location.
+// app.use(express.static('files'));s
+
+app.use('/photos/special', function(req, res, next){
+	console.log('app use /photos/special ran');
+	res.send('You have reached a special area');
 });
 
-app.get('/news', function(req, resp){
-	resp.send('this is the news');
-});
-
-app.use('/channel/special', function(request, response, next){
-	response.send('You have reached a special area');
-});
-
-app.use('/channel', function(request, response, next){
-	response.send('GET / ');
+app.use('/photos', function(req, res, next){
+	console.log('app use /photos ran');
+	res.send('GET / ');
 	next();
 });
 
