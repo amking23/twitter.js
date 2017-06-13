@@ -20,7 +20,7 @@ const getFakeTweet = function() {
 
 var functions = {
 	add: function(name, content) {
-		data.push({name: name, content: content});
+		data.push({name: name, content: content, id: data.length});
 	},
 
 	list: function() {
@@ -28,6 +28,8 @@ var functions = {
 	},
 
 	find: function (properties) {
+		console.log(_.cloneDeep(_.filter(data, properties)));
+		console.log('here are the props', properties);
 		return _.cloneDeep(_.filter(data, properties));
 	}
 
@@ -35,11 +37,11 @@ var functions = {
 // console.log(module.exports);
 module.exports = functions;
 for (let i = 0; i < 10; i++) {
-  module.exports.add( getFakeName(), getFakeTweet() );
+  module.exports.add( getFakeName(), getFakeTweet());
 }
 
-//find test
-// module.exports.add( 'Jason', 'It was supposed to rain today.');
+// find test
+module.exports.add( 'Jason', 'It was supposed to rain today.');
 // console.log('find: ',module.exports.find( {'name': 'Jason'}));
 
 // test list

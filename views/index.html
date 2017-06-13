@@ -8,7 +8,21 @@
   <div class="row">
     <div class="col-md-3">
       <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-      <b>Your Name</b><br>
+
+      //Post Tweets Form
+      {% if showForm %}
+        <form action="/tweets" method="POST">
+          <label for="name_field">Name:</label>
+          <input name="name" type="text" id="name_field" / value='{{name}}'>
+
+          <label for="text_field">Text:</label>
+          <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+          <input type="submit" value="Submit" />
+        </form>
+      {% endif %}
+
+      <b>Jason and Anne Marie</b><br>
       100 followers
     </div>
     <div class="col-md-9">
@@ -20,8 +34,8 @@
       		<img src="http://www.hdicon.com/wp-content/uploads/2012/07/twitter_2012.png" width='80' height='80'>
       	</div><br>
       	<div class='col-md-7'>
-	      	<li class='userName'>{{tweet.name}}</li>
-	        <li>{{tweet.content}}</li>
+	      	<li class='userName'><a href="/users/{{tweet.name}}">{{tweet.name}}</a></li>
+	        <li><a href="/tweets/{{tweet.id}}">{{tweet.content}}</a></li>
 	    </div>
 	  </div>
       {% endfor %}

@@ -5,6 +5,13 @@ const nunjucks = require('nunjucks');
 app.use(morgan('dev'));
 const routes = require('./routes');
 const path = require('path');
+const socketio = require('socket.io');
+
+var server = app.listen(3000, function() {
+	console.log('server listening');
+});
+var io = socketio.listen(server);
+
 
 var locals = {
     title: 'An Example',
@@ -27,7 +34,7 @@ app.set('view engine', 'html'); // have res.render work with html files
 app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
 nunjucks.configure('views'); // point nunjucks to the proper directory for templates
 
-app.use('/', routes);
+app.use('/', routes(io));
 
 app.use('/static', express.static('public')); // uses '/static' as an alias for the  directory location.
 // app.use(express.static('files'));s
@@ -41,8 +48,4 @@ app.use('/photos', function(req, res, next){
 	console.log('app use /photos ran');
 	res.send('GET / ');
 	next();
-});
-
-app.listen(3000, function() {
-	console.log('server listening');
 });
